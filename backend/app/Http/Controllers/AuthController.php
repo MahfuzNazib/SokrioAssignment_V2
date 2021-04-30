@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use DB;
 
 class AuthController extends Controller
@@ -36,6 +37,14 @@ class AuthController extends Controller
         $user->status = 'Active';
         $user->menuroles = 'company';
         $user->save();       
+
+        $company = new Company;
+        $company->user_id = $user->id;
+        $company->compamy_name = $request->name;
+        $company->address = $request->address;
+        $company->phone = $request->phone;
+        $company->save();
+
         return response()->json(['status' => 'success'], 200);
     } 
 

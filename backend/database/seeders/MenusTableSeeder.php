@@ -162,8 +162,8 @@ class MenusTableSeeder extends Seeder
 
         $this->insertTitle('company,admin','Company Branch');
         $this->beginDropdown('company,admin', 'Branch', '/branch', 'cil-puzzle');
-            $this->insertLink('company,admin', 'All Branch','/branch_index');
-            $this->insertLink('company,admin', 'Add New Branch', '/branch_add');
+            $this->insertLink('company,admin', 'AllBranch','/branch_index');
+            $this->insertLink('company,admin', 'CreateBranch', '/create_branch');
         $this->endDropdown();
 
         // Adding Company Branch Menu End

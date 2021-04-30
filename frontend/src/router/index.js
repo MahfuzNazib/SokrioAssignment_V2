@@ -16,6 +16,10 @@ const CompanyDashboard = () => import('@/views/CompanyDashboard');
 const InvestigationCode = () => import('@/views/InvestigationCode/investigation_code');
 
 
+// Company Branch
+const CreateBranch = () => import('@/views/branch/create');
+const AllBranch = () => import('@/views/branch/index');
+
 
 const Login = () => import('@/views/pages/Login')
 const Register = () => import('@/views/pages/Register')
@@ -120,6 +124,25 @@ function configRoutes () {
             requiresAdmin: true
           }
         },
+
+        // Company Branch
+        {
+          path: 'create_branch',
+          name: 'CreateBranch',
+          component: CreateBranch,
+          meta:{
+            auth:true
+          }
+        },
+        {
+          path: 'branch_index',
+          name: 'AllBranch',
+          component: AllBranch,
+          meta:{
+            auth:true
+          }
+        },
+        // Company Branch End
         
         {
           path: 'menu',
