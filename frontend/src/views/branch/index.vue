@@ -8,9 +8,7 @@
                 <!-- Searching Start-->
                 <div class="col-md-6"></div>
                 <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Search by Name or Address..." v-model="search_string" v-on:keyup="branchSearch()">
-                    <!-- <input type="text" v-model="search_string" v-on:keyup="branchSearch()" class="form-control float-right mb-2" placeholder="Search by Name or Address..."> -->
-
+                    <input type="text" class="form-control mb-3" placeholder="Search by Name or Address..." v-model="search_string" v-on:keyup="branchSearch()">
                 </div>
                 <!-- Searching End -->
 
@@ -44,7 +42,7 @@
                                 <td>{{ branch.address }}</td>
                                 <td>{{ branch.phone }}</td>
                                 <td>
-                                    <button class="btn btn-info btn-sm">View</button> &nbsp;&nbsp;
+                                    <!-- <button class="btn btn-info btn-sm">View</button> &nbsp;&nbsp; -->
                                     <router-link :to="{name:'branch_edit', params:{id: branch.id}}">
                                         <button class="btn btn-warning btn-sm">Edit</button>
                                     </router-link>
@@ -77,8 +75,10 @@
                                 <td>{{ search.address }}</td>
                                 <td>{{ search.phone }}</td>
                                 <td>
-                                    <button class="btn btn-info btn-sm">View</button> &nbsp;&nbsp;
-                                    <button class="btn btn-warning btn-sm">Edit</button>
+                                    <!-- <button class="btn btn-info btn-sm">View</button> &nbsp;&nbsp; -->
+                                    <router-link :to="{name:'branch_edit', params:{id: branch.id}}">
+                                        <button class="btn btn-warning btn-sm">Edit</button>
+                                    </router-link>
                                 </td>
                             </tr>
                         </tbody>

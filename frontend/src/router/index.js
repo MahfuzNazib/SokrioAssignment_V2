@@ -19,6 +19,8 @@ const InvestigationCode = () => import('@/views/InvestigationCode/investigation_
 // Company Branch
 const CreateBranch = () => import('@/views/branch/create');
 const AllBranch = () => import('@/views/branch/index');
+const BranchEdit = () => import('@/views/branch/edit');
+
 
 
 const Login = () => import('@/views/pages/Login')
@@ -138,6 +140,14 @@ function configRoutes () {
           path: 'branch_index',
           name: 'AllBranch',
           component: AllBranch,
+          meta:{
+            auth:true
+          }
+        },
+        {
+          path: 'branch_edit',
+          name: 'branch_edit',
+          component: BranchEdit,
           meta:{
             auth:true
           }

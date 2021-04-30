@@ -164,6 +164,7 @@ class MenusTableSeeder extends Seeder
         $this->beginDropdown('company,admin', 'Branch', '/branch', 'cil-puzzle');
             $this->insertLink('company,admin', 'AllBranch','/branch_index');
             $this->insertLink('company,admin', 'CreateBranch', '/create_branch');
+            $this->insertLink('company,admin', 'BranchTrash', '/branch_trash');
         $this->endDropdown();
 
         // Adding Company Branch Menu End
@@ -171,8 +172,9 @@ class MenusTableSeeder extends Seeder
         // Create Company Employees Start
         $this->insertTitle('company,admin','Employees');
         $this->beginDropdown('company,admin', 'Employee', '/employee', 'cil-puzzle');
-            $this->insertLink('company,admin', 'All Employee','/employee_index');
-            $this->insertLink('company,admin', 'Add New Employee', '/employee_add');
+            $this->insertLink('company,admin', 'AllEmployee','/employee_index');
+            $this->insertLink('company,admin', 'AddNewEmployee', '/employee_add');
+            $this->insertLink('company,admin', 'EmployeeTrash', '/employee_trash');
         $this->endDropdown();
         // Create Company Employees End
 
