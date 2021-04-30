@@ -21,7 +21,10 @@ const CreateBranch = () => import('@/views/branch/create');
 const AllBranch = () => import('@/views/branch/index');
 const BranchEdit = () => import('@/views/branch/edit');
 
-
+// Designation
+const CreateDesignation = () => import('@/views/designation/create');
+const AllDesignation = () => import('@/views/designation/index');
+const DesignationEdit = () => import('@/views/designation/edit');
 
 const Login = () => import('@/views/pages/Login')
 const Register = () => import('@/views/pages/Register')
@@ -153,6 +156,33 @@ function configRoutes () {
           }
         },
         // Company Branch End
+
+        // Designation Start
+        {
+          path: 'create_designation',
+          name: 'CreateDesignation',
+          component: CreateDesignation,
+          meta:{
+            auth:true
+          }
+        },
+        {
+          path: 'designation_index',
+          name: 'AllDesignation',
+          component: AllDesignation,
+          meta:{
+            auth:true
+          }
+        },
+        {
+          path: 'designation_edit',
+          name: 'designation_edit',
+          component: DesignationEdit,
+          meta:{
+            auth:true
+          }
+        },
+        // Designation End
         
         {
           path: 'menu',

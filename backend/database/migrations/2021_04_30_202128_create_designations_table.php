@@ -15,7 +15,11 @@ class CreateDesignationsTable extends Migration
     {
         Schema::create('designations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('branch_id');
+            $table->string('title');
+            $table->integer('status')->default(1);
             $table->timestamps();
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
         });
     }
 

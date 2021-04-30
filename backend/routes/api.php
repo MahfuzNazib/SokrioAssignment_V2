@@ -33,11 +33,12 @@ Route::group(['middleware' => 'api'], function ($router) {
 
         // Branch Route
         Route::post('/create_branch', 'BranchController@createBranch')->name('branch.create');
-        Route::get('/branch_index', 'BranchController@branchIndex')->name('branch.index');
+        Route::get('/branch_index/{id}', 'BranchController@branchIndex')->name('branch.index');
         Route::get('/branch_edit/{id}', 'BranchController@branchEdit')->name('branch.edit');
         Route::post('/branch_edit/{id}', 'BranchController@branchUpdate')->name('branch.update');
         Route::post('/branch_delete/{id}', 'BranchController@branchDelete')->name('branch.delete');
         Route::get('/branch_search/{search_string}', 'BranchController@branchSearch')->name('branch.search');
+        Route::get('/get_branches/{id}', 'BranchController@getBranches')->name('branch.branches');
 
 
         Route::get('/company_info/{id}', 'CompanyController@companyInfo')->name('company.info');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Branch;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class BranchController extends Controller
@@ -13,8 +14,9 @@ class BranchController extends Controller
         return response()->json(['status' => 'Success'],200);
     }
 
-    public function branchIndex(){
-        $branch_list = Branch::where('status' , 1)->get();
+    public function branchIndex($id){
+        $company_id = Company::where('user_id', $id)->first();
+        $branch_list = Branch::where('status' , 1)->where('company_id', $company_id->id)->get();
         return response()->json(['status' => 'Success','branch_list' => $branch_list], 200);
     }
 
@@ -43,6 +45,13 @@ class BranchController extends Controller
                                 ->get();
 
         return response()->json(['status' => 'Success','search_result' => $search_result], 200);
+    }
+
+    // Get Branches
+    public function getBranches($id){
+        $company_id = Company::where('user_id', $id)->first();
+        $branches = Branch::where('company_id', $company_id->id)->get();
+        return response()->json(['status' => 'Success', 'branches' => $branches],200);
     }
 
     

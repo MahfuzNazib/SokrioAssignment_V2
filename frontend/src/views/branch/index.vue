@@ -112,7 +112,7 @@
 
         methods:{
             getAllBranch(){
-                axios.get(this.$apiURL + '/branch_index')
+                axios.get(this.$apiURL + '/branch_index/'+localStorage.getItem('id'))
                 .then((res) => {
                     this.branch_list = res.data.branch_list;
                     if(this.branch_list.length == 0){
