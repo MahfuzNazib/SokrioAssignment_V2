@@ -35,7 +35,6 @@ class AuthController extends Controller
         $user->password = bcrypt($request->password);
         $user->status = 'Active';
         $user->menuroles = 'company';
-        // $user->role = 1;
         $user->save();       
         return response()->json(['status' => 'success'], 200);
     } 
@@ -70,14 +69,13 @@ class AuthController extends Controller
     {
         $user = User::select('menuroles as roles')->where('email','=', $email)->first();
         $u = User::where('email', $email)->first();
-
+        
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
             'roles' => $user->roles,
-            'user_data' => $u,
-            'email' => $u->email,
+            'name' => $u->name,
             'id' => $u->id,
         ]);
     }

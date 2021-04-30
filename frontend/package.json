@@ -1,21 +1,21 @@
 {
-  "name": "@coreui/coreui-free-vue-laravel-admin-template",
+  "name": "Nazib-Mahfuz",
   "version": "1.0.0",
-  "description": "CoreUI Free Vue Laravel Bootstrap Admin Template",
+  "description": "Attendance System Assignment ",
   "author": {
-    "name": "CoreUI",
-    "url": "https://coreui.io",
-    "github": "https://github.com/coreui",
-    "twitter": "https://twitter.com/core_ui"
+    "name": "Nazib",
+    "url": "",
+    "github": "https://github.com/MahfuzNazib",
+    "twitter": ""
   },
   "contributors": [
     {
-      "name": "CoreUI Team",
-      "url": "https://github.com/orgs/coreui/people"
+      "name": "Nazib",
+      "url": "https://github.com/MahfuzNazib"
     }
   ],
-  "homepage": "http://coreui.io",
-  "copyright": "Copyright 2020 creativeLabs Łukasz Holeczek",
+  "homepage": "",
+  "copyright": "",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",

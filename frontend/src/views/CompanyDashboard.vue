@@ -2,17 +2,16 @@
   <div>
     <CCard>
       <CCardBody>
-      This is Company Dashboard
+        This is Company Dashboard
       </CCardBody>
     </CCard>
-    
+
   </div>
 </template>
 
 <script>
+  export default {
+    name: 'Dashboard',
 
-export default {
-  name: 'Dashboard',
- 
-}
+  }
 </script>

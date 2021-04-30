@@ -2,13 +2,29 @@
   <div>
     <CCard>
       <CCardBody>
+        <div>
+          <center>
+            <h1>Welcome, {{ name }}</h1>
+          </center>
+        </div>
         <div v-if="role == 'company'">
-          <h1>This is company dashboard</h1>
+          <CompanyDashboard />
         </div>
-        <div v-else>
-        This is Super Admin Dashboard
-          
+
+        <!-- <div v-else>
+          <AdminDashboard />
+        </div> -->
+
+        <div v-if="role == 'employee'">
+          <EmployeeDashboard />
         </div>
+
+        <div v-if="role == 'manager'">
+          <ManagerDashboard />
+        </div>
+
+
+
       </CCardBody>
     </CCard>
 
@@ -16,29 +32,42 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  // import axios from 'axios'
+  import AdminDashboard from './AdminDashboard';
+  import CompanyDashboard from './CompanyDashboard';
+  import ManagerDashboard from './ManagerDashboard';
+  import EmployeeDashboard from './EmployeeDashboard';
+
   export default {
+    component: {
+      AdminDashboard,
+      CompanyDashboard,
+      ManagerDashboard,
+      EmployeeDashboard
+    },
     data() {
       return {
-        has_error:false,
-        user:null,
-        role:null
+        has_error: false,
+        user: null,
+        role: null,
+        name: null
       }
     },
 
-    mounted(){
+    mounted() {
       this.getUser();
     },
 
-    methods:{
-      getUser(){
+    methods: {
+      getUser() {
         let u_role = localStorage.getItem('roles');
         this.role = u_role;
-        axios.get(this.$apiURL + '/user/'+localStorage.getItem('id'))
-        .then((res) => {
-          this.user = res.data.user;
-          console.log(this.user);
-        })
+        this.name = localStorage.getItem('name'); 
+        // axios.get(this.$apiURL + '/user/' + localStorage.getItem('id'))
+        //   .then((res) => {
+        //     this.user = res.data.user;
+        //     console.log(this.user);
+        //   })
       }
     }
 
