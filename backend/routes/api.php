@@ -41,6 +41,10 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::get('/get_branches/{id}', 'BranchController@getBranches')->name('branch.branches');
 
 
+        // Designation Route
+        Route::post('/create_designation', 'DesignationController@createDesignation')->name('designation.create');
+
+
         Route::get('/company_info/{id}', 'CompanyController@companyInfo')->name('company.info');
         
 
