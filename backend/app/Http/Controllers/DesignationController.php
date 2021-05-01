@@ -13,4 +13,8 @@ class DesignationController extends Controller
 
         return response()->json(['status' => 'Success'],200);
     }
+
+    public function designationIndex($id){
+        
+    }
 }

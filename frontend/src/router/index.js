@@ -26,6 +26,12 @@ const CreateDesignation = () => import('@/views/designation/create');
 const AllDesignation = () => import('@/views/designation/index');
 const DesignationEdit = () => import('@/views/designation/edit');
 
+// Employee
+const AddNewEmployee = () => import('@/views/employee/create');
+const AllEmployee = () => import('@/views/employee/index');
+const EmployeeEdit = () => import('@/views/employee/edit');
+
+
 const Login = () => import('@/views/pages/Login')
 const Register = () => import('@/views/pages/Register')
 const Page404 = () => import('@/views/pages/Page404')
@@ -183,6 +189,35 @@ function configRoutes () {
           }
         },
         // Designation End
+
+
+        // Employee Start
+        {
+          path: 'employee_Add',
+          name: 'AddNewEmployee',
+          component: AddNewEmployee,
+          meta:{
+            auth:true
+          }
+        },
+        {
+          path: 'employee_index',
+          name: 'AllEmployee',
+          component: AllEmployee,
+          meta:{
+            auth:true
+          }
+        },
+        {
+          path: 'employee_edit',
+          name: 'employee_edit',
+          component: EmployeeEdit,
+          meta:{
+            auth:true
+          }
+        },
+
+        // Employee End
         
         {
           path: 'menu',

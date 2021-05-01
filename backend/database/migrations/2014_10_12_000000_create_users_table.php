@@ -24,7 +24,8 @@ class CreateUsersTable extends Migration
             ->default(null);
             $table->string('menuroles');
             $table->string('status')->nullable();
-            $table->integer('role')->nullable();
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('branch_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

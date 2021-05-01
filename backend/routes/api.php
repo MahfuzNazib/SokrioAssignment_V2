@@ -43,9 +43,14 @@ Route::group(['middleware' => 'api'], function ($router) {
 
         // Designation Route
         Route::post('/create_designation', 'DesignationController@createDesignation')->name('designation.create');
+        Route::get('/designation_index/{id}', 'DesignationController@designationIndex')->name('designation.index');
 
 
         Route::get('/company_info/{id}', 'CompanyController@companyInfo')->name('company.info');
+        
+
+        // Employee Route
+        Route::post('/employee_register', 'EmployeeController@employeeRegister')->name('employee.register');
         
 
         Route::resource('bread',  'BreadController');   //create BREAD (resource)
