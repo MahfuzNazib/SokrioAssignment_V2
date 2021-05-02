@@ -43,8 +43,18 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'status'
+        'name', 'email', 'password', 'menuroles','status', 'company_id', 'branch_id'
     ];
+
+    // Register New User
+    public static function registerNewUser($requestData){
+        try{
+            $id = static::create($requestData);
+            return $id;
+        }catch(\Exception $e){
+            throw new \Exception($e->getMessage(), 1);               
+        }
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -70,7 +80,7 @@ class User extends Authenticatable implements JWTSubject
     
     protected $guard_name = 'api';
 
-    protected $attributes = [ 
-        'menuroles' => 'user',
-    ];
+    // protected $attributes = [ 
+    //     'menuroles' => 'user',
+    // ];
 }

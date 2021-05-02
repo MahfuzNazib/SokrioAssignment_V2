@@ -51,7 +51,7 @@ class BranchController extends Controller
     public function getBranches($id){
         $company_id = Company::where('user_id', $id)->first();
         $branches = Branch::where('company_id', $company_id->id)->get();
-        return response()->json(['status' => 'Success', 'branches' => $branches],200);
+        return response()->json(['status' => 'Success', 'branches' => $branches, 'company_id' => $company_id],200);
     }
 
     

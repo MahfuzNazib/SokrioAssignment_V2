@@ -104,13 +104,12 @@
             return {
                 name: '',
                 email: '',
-                address: '',
-                phone: '',
                 password: '',
                 password_confirmation: '',
                 menuroles: '',
                 branch_id:'',
-                branches:null
+                branches:null,
+                company_id:'',
             }
         },
 
@@ -124,17 +123,35 @@
                 axios.post(this.$apiAdress + '/api/employee_register', {
                         name: self.name,
                         email: self.email,
-                        address: self.address,
-                        phone: self.phone,
                         password: self.password,
-                        password_confirmation: self.password_confirmation,
-                        menuroles: self.menuroles
+                        menuroles: self.menuroles,
+                        branch_id: self.branch_id,
+                        company_id: self.company_id
                     }).then(function (response) {
+                        if (res.data.status === 'Success') {
+                            self.$swal({
+                                title: "Success",
+                                text: "Employee Successfully Created",
+                                type: "success",
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: "#00CCFF",
+                                cancelButtonColor: "#00CCFF",
+                                confirmButtonText: "OK",
+                                closeOnCancel: true
+                            }).then(() => {
+                                self.$router.push({
+                                    path: 'branch_index'
+                                });
+                            });
+                        }else{
+                            self.errors = res.data.errors;
+                        }
                         self.name = '';
                         self.email = '';
                         self.address = '',
-                            self.phone = '',
-                            self.password = '';
+                        self.phone = '',
+                        self.password = '';
                         self.password_confirmation = '';
                         self.menuroles = '',
                         console.log(response);
@@ -158,6 +175,7 @@
                 axios.get(this.$apiURL+'/get_branches/'+localStorage.getItem('id'))
                 .then((res) => {
                     this.branches = res.data.branches;
+                    this.company_id = res.data.company_id.id;
                 })
             },
         }
