@@ -29,4 +29,8 @@ class EmployeeController extends Controller
         $save = User::registerNewUser($data);
         return response()->json(['status' => 'Success'],200);
     }
+
+    public function employeeIndex($id){
+        return $id;
+    }
 }
