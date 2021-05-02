@@ -41,7 +41,7 @@
                             <tr v-else v-for="employee in employee_list" :key="employee.id">
                                 <td>{{ employee.name }}</td>
                                 <td>{{ employee.email }}</td>
-                                <td>{{ employee.branch_id }}</td>
+                                <td>{{ employee.branch.branch_name }}</td>
                                 <td>{{ employee.menuroles }}</td>
                                 <td>
                                     <!-- <button class="btn btn-info btn-sm">View</button> &nbsp;&nbsp; -->

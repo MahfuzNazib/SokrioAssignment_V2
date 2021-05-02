@@ -83,4 +83,9 @@ class User extends Authenticatable implements JWTSubject
     // protected $attributes = [ 
     //     'menuroles' => 'user',
     // ];
+
+    // belongsTo Relationship
+    public function branch(){
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
+    }
 }

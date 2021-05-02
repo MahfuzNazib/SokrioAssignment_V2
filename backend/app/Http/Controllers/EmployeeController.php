@@ -33,8 +33,7 @@ class EmployeeController extends Controller
 
     public function employeeIndex($id){
         $company_id = Company::where('user_id', $id)->first();
-        $employee_list = User::where('company_id', $company_id->id)->get();
-
+        $employee_list = User::with('branch')->where('company_id', $company_id->id)->get();
         return response()->json(['status' => 'Success', 'employee_list' => $employee_list],200);
     }
 }
