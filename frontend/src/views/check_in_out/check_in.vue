@@ -28,7 +28,11 @@ import axios from 'axios'
 
         methods:{
             checkIn(){
-                axios.post(this.$apiURL + '/check_in').then(function (res) {
+                axios.post(this.$apiURL + '/check_in',{
+                    company_id: this.company_id,
+                    user_id: this.user_id,
+                    branch_id: this.branch_id
+                }).then(function (res) {
                         if (res.data.status === 'Success') {
                             this.$swal({
                                 title: "Success",
