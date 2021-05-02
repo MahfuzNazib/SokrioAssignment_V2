@@ -5,22 +5,15 @@
                 <h5>Add New Employee</h5>
             </CCardHeader>
             <CCardBody>
-                <!-- Show Error Messages -->
-                <!-- <p v-if="errors.length">
-                        <b class="text-danger text-bold">Please correct the following error(s):</b>
-                        <ul>
-                            <li class="text-danger" v-for="error in errors" :key="error.id">{{ error }}</li>
-                        </ul>
-                    </p> -->
-                <!-- End Error Messages -->
                 <CForm @submit.prevent="register" method="POST">
                     <div class="row">
                         <div class="col-sm-8">
-                            <div class="row">
+                            <div class="row" v-bind:class="{ 'has-error': errors.name }">
                                 <div class="col-sm-3 mt-2">Employee Name</div>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" placeholder="Enter Employee Name"
                                         v-model="name">
+                                    <span class="text-danger" v-if="errors.name">{{ errors.name }}</span>
                                 </div>
                             </div>
                         </div>
@@ -28,11 +21,12 @@
 
                     <div class="row mt-2">
                         <div class="col-sm-8">
-                            <div class="row">
+                            <div class="row" v-bind:class="{ 'has-error': errors.email }">
                                 <div class="col-sm-3 mt-2">Email</div>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" placeholder="Enter Email Address"
                                         v-model="email">
+                                    <span class="text-danger" v-if="errors.email">{{ errors.email }}</span>
                                 </div>
                             </div>
                         </div>
@@ -40,11 +34,12 @@
 
                     <div class="row mt-2">
                         <div class="col-sm-8">
-                            <div class="row">
+                            <div class="row" v-bind:class="{ 'has-error': errors.password }">
                                 <div class="col-sm-3 mt-2">Set Primary Password</div>
                                 <div class="col-sm-8">
                                     <input type="password" class="form-control" placeholder="Primary Password"
                                         v-model="password">
+                                    <span class="text-danger" v-if="errors.password">{{ errors.password }}</span>
                                 </div>
                             </div>
                         </div>
@@ -52,7 +47,7 @@
 
                     <div class="row mt-2">
                         <div class="col-sm-8">
-                            <div class="row">
+                            <div class="row" v-bind:class="{ 'has-error': errors.menuroles }">
                                 <div class="col-sm-3 mt-2">Type</div>
                                 <div class="col-sm-8">
                                     <select class="form-control" v-model="menuroles"
@@ -60,6 +55,7 @@
                                         <option>manager</option>
                                         <option>employee</option>
                                     </select>
+                                    <span class="text-danger" v-if="errors.menuroles">{{ errors.menuroles }}</span>
                                 </div>
                             </div>
                         </div>
@@ -67,13 +63,16 @@
 
                     <div class="row mt-2">
                         <div class="col-sm-8">
-                            <div class="row">
+                            <div class="row" v-bind:class="{ 'has-error': errors.branch_id }">
                                 <div class="col-sm-3 mt-2">Branch Name</div>
                                 <div class="col-sm-8">
-                                    <select class="form-control" v-model="branch_id" @change="select_branch_name($event)">
+                                    <select class="form-control" v-model="branch_id"
+                                        @change="select_branch_name($event)">
                                         <option selected disabled>Please Select Branch Name</option>
-                                        <option v-for="branch in branches" :key="branch.id" v-bind:value="branch.id">{{ branch.branch_name }}</option>
+                                        <option v-for="branch in branches" :key="branch.id" v-bind:value="branch.id">
+                                            {{ branch.branch_name }}</option>
                                     </select>
+                                    <span class="text-danger" v-if="errors.branch_id">{{ errors.branch_id }}</span>
                                 </div>
                             </div>
                         </div>
@@ -107,16 +106,17 @@
                 password: '',
                 password_confirmation: '',
                 menuroles: '',
-                branch_id:'',
-                branches:null,
-                company_id:'',
+                branch_id: '',
+                branches: null,
+                company_id: '',
+                errors: {},
             }
         },
 
-        mounted(){
+        mounted() {
             this.getAllBranch();
         },
-        
+
         methods: {
             register() {
                 var self = this;
@@ -128,7 +128,7 @@
                         branch_id: self.branch_id,
                         company_id: self.company_id
                     }).then(function (response) {
-                        if (res.data.status === 'Success') {
+                        if (response.data.status === 'Success') {
                             self.$swal({
                                 title: "Success",
                                 text: "Employee Successfully Created",
@@ -141,23 +141,14 @@
                                 closeOnCancel: true
                             }).then(() => {
                                 self.$router.push({
-                                    path: 'branch_index'
+                                    name: 'AllEmployee'
                                 });
                             });
-                        }else{
-                            self.errors = res.data.errors;
                         }
-                        self.name = '';
-                        self.email = '';
-                        self.address = '',
-                        self.phone = '',
-                        self.password = '';
-                        self.password_confirmation = '';
-                        self.menuroles = '',
-                        console.log(response);
-                        // self.$router.push({
-                        //   path: '/login'
-                        // });
+                        // If Validation error
+                        if (response.data.status === 'error') {
+                            self.errors = response.data.errors;
+                        }
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -165,18 +156,18 @@
 
             },
 
-            select_employee_type(e){
+            select_employee_type(e) {
                 var app = this;
                 app.menuroles = e.target.value;
                 console.log(app.menuroles);
             },
 
-            getAllBranch(){
-                axios.get(this.$apiURL+'/get_branches/'+localStorage.getItem('id'))
-                .then((res) => {
-                    this.branches = res.data.branches;
-                    this.company_id = res.data.company_id.id;
-                })
+            getAllBranch() {
+                axios.get(this.$apiURL + '/get_branches/' + localStorage.getItem('id'))
+                    .then((res) => {
+                        this.branches = res.data.branches;
+                        this.company_id = res.data.company_id.id;
+                    })
             },
         }
     }
