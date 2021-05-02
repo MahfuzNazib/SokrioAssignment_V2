@@ -36,4 +36,12 @@ class EmployeeController extends Controller
         $employee_list = User::with('branch')->where('company_id', $company_id->id)->get();
         return response()->json(['status' => 'Success', 'employee_list' => $employee_list],200);
     }
+
+    public function employeeSearch($search_string){
+        $search_result = User::with('branch')->where('name', 'like', '%'.$search_string.'%')
+        ->orWhere('email', 'like', '%'.$search_string.'%')
+        ->get();
+
+return response()->json(['status' => 'Success','search_result' => $search_result], 200);
+    }
 }

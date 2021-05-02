@@ -8,7 +8,7 @@
                 <!-- Searching Start-->
                 <div class="col-md-6"></div>
                 <div class="col-md-6">
-                    <input type="text" class="form-control mb-3" placeholder="Search by Name or Address..." v-model="search_string" v-on:keyup="branchSearch()">
+                    <input type="text" class="form-control mb-3" placeholder="Search by Name or Email..." v-model="search_string" v-on:keyup="employeeSearch()">
                 </div>
                 <!-- Searching End -->
 
@@ -73,12 +73,12 @@
                             <!-- No Record Found Message End-->
 
                             <tr v-for="search in search_result" :key="search.id">
-                                <td>{{ search.branch_name }}</td>
-                                <td>{{ search.address }}</td>
-                                <td>{{ search.phone }}</td>
+                                <td>{{ search.name }}</td>
+                                <td>{{ search.email }}</td>
+                                <td>{{ search.branch.branch_name }}</td>
+                                <td>{{ search.menuroles }}</td>
                                 <td>
-                                    <!-- <button class="btn btn-info btn-sm">View</button> &nbsp;&nbsp; -->
-                                    <router-link :to="{name:'employee_edit', params:{id: employee.id}}">
+                                    <router-link :to="{name:'employee_edit', params:{id: search.id}}">
                                         <button class="btn btn-warning btn-sm">Edit</button>
                                     </router-link>
                                 </td>
@@ -128,12 +128,13 @@
                 })
             },
 
-            branchSearch(){
+            employeeSearch(){
                 if(this.search_string.length > 3){
                     this.is_searched = true;
                     axios.get(this.$apiURL + '/employee_search/'+this.search_string)
                     .then((res) => {
                         this.search_result = res.data.search_result;
+                        console.log(this.search_result);
                         if(this.search_result.length == 0){
                             this.no_record = true;
                         }else{

@@ -52,6 +52,8 @@ Route::group(['middleware' => 'api'], function ($router) {
         // Employee Route
         Route::post('/employee_register', 'EmployeeController@employeeRegister')->name('employee.register');
         Route::get('/employee_index/{id}', 'EmployeeController@employeeIndex')->name('employee.index');
+        Route::get('/employee_search/{search_string}', 'EmployeeController@employeeSearch')->name('employee.search');
+
 
         Route::resource('bread',  'BreadController');   //create BREAD (resource)
 
