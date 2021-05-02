@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -31,6 +32,9 @@ class EmployeeController extends Controller
     }
 
     public function employeeIndex($id){
-        return $id;
+        $company_id = Company::where('user_id', $id)->first();
+        $employee_list = User::where('company_id', $company_id->id)->get();
+
+        return response()->json(['status' => 'Success', 'employee_list' => $employee_list],200);
     }
 }

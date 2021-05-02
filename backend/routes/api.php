@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
+
 
 Route::group(['middleware' => 'api'], function ($router) {
     Route::get('menu', 'MenuController@index');
@@ -45,8 +45,10 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::post('/create_designation', 'DesignationController@createDesignation')->name('designation.create');
         Route::get('/designation_index/{id}', 'DesignationController@designationIndex')->name('designation.index');
 
+
         Route::get('/company_info/{id}', 'CompanyController@companyInfo')->name('company.info');
         
+
         // Employee Route
         Route::post('/employee_register', 'EmployeeController@employeeRegister')->name('employee.register');
         Route::get('/employee_index/{id}', 'EmployeeController@employeeIndex')->name('employee.index');
