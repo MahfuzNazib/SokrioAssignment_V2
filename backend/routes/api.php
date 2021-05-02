@@ -47,13 +47,16 @@ Route::group(['middleware' => 'api'], function ($router) {
 
 
         Route::get('/company_info/{id}', 'CompanyController@companyInfo')->name('company.info');
-        
+       
 
         // Employee Route
         Route::post('/employee_register', 'EmployeeController@employeeRegister')->name('employee.register');
         Route::get('/employee_index/{id}', 'EmployeeController@employeeIndex')->name('employee.index');
         Route::get('/employee_search/{search_string}', 'EmployeeController@employeeSearch')->name('employee.search');
 
+        // Check IN OUT
+        Route::post('/check_in', 'CheckInOutController@checkIn')->name('check.in');
+        Route::get('/get_info/{id}', 'CheckInOutController@getInfo')->name('check.getInfo');
 
         Route::resource('bread',  'BreadController');   //create BREAD (resource)
 

@@ -31,6 +31,10 @@ const AddNewEmployee = () => import('@/views/employee/create');
 const AllEmployee = () => import('@/views/employee/index');
 const EmployeeEdit = () => import('@/views/employee/edit');
 
+// Check In_out
+const CheckIn = () => import('@/views/check_in_out/check_in');
+const CheckOut = () => import('@/views/check_in_out/check_out');
+
 
 const Login = () => import('@/views/pages/Login')
 const Register = () => import('@/views/pages/Register')
@@ -218,6 +222,25 @@ function configRoutes () {
         },
 
         // Employee End
+
+        // Check In Out Start
+        {
+          path: 'check_in',
+          name: 'CheckIn',
+          component: CheckIn,
+          meta:{
+            auth:true
+          }
+        },
+        {
+          path: 'check_out',
+          name: 'CheckOut',
+          component: CheckOut,
+          meta:{
+            auth:true
+          }
+        },
+        // Check In Out End
         
         {
           path: 'menu',
