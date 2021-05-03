@@ -5,6 +5,14 @@
         <CCol md="6">
           <CCard class="mx-4 mb-0">
             <CCardBody class="p-4">
+              <!-- Show Error Messages -->
+              <p v-if="errors.length">
+                <b class="text-danger text-bold">Please correct the following error(s):</b>
+                <ul>
+                  <li class="text-danger" v-for="error in errors" :key="error.id">{{ error }}</li>
+                </ul>
+              </p>
+              <!-- End Error Messages -->
               <CForm @submit.prevent="register" method="POST">
                 <h1>Register</h1>
                 <p class="text-muted">Create Company Account</p>
@@ -28,6 +36,9 @@
                     <CIcon name="cil-lock-locked" /></template>
                 </CInput>
                 <CButton type="submit" color="success" block>Create Account</CButton>
+                <center>
+                  <router-link :to="{path:'/login'}">Login</router-link>
+                </center>
               </CForm>
             </CCardBody>
           </CCard>
@@ -44,38 +55,58 @@
       return {
         name: '',
         email: '',
-        address:'',
-        phone:'',
+        address: '',
+        phone: '',
         password: '',
-        password_confirmation: ''
+        password_confirmation: '',
+        errors: [],
       }
     },
     methods: {
-      register() {
+      register(e) {
         var self = this;
-        axios.post(this.$apiAdress + '/api/register', {
-            name: self.name,
-            email: self.email,
-            address: self.address,
-            phone: self.phone,
-            password: self.password,
-            password_confirmation: self.password_confirmation
-          }).then(function (response) {
-            self.name = '';
-            self.email = '';
-            self.address = '',
-            self.phone = '',
-            self.password = '';
-            self.password_confirmation = '';
-            console.log(response);
-            self.$router.push({
-              path: '/login'
-            });
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        if (self.name && self.email && self.password) {
+          axios.post(this.$apiAdress + '/api/register', {
+              name: self.name,
+              email: self.email,
+              address: self.address,
+              phone: self.phone,
+              password: self.password,
+              password_confirmation: self.password_confirmation
+            }).then(function (response) {
+              // If Validation error
+              if (response.data.status === 'error') {
+                self.errors = response.data.errors;
+              }
 
+              self.name = '';
+              self.email = '';
+              self.address = '',
+                self.phone = '',
+                self.password = '';
+              self.password_confirmation = '';
+              console.log(response);
+              self.$router.push({
+                path: '/login'
+              });
+
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        } else {
+          self.errors = [];
+          if (!self.name) {
+            self.errors.push("Company Name Required");
+          }
+          if (!self.email) {
+            self.errors.push("Email Address Required");
+          }
+          if (!self.password) {
+            self.errors.push("Password Phone is Required");
+          }
+          e.preventDefault();
+        }
       }
     }
   }

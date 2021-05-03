@@ -30,7 +30,7 @@
                     <CButton type="submit" color="primary" class="px-4">Login</CButton>
                   </CCol>
                   <CCol col="6" class="text-right">
-                    <CButton color="link" class="px-0">Forgot password?</CButton>
+                    
                   </CCol>
                 </CRow>
               </CForm>
@@ -43,7 +43,7 @@
             body-wrapper
           >
             <h2>Sign up</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>Registration Process for a Company</p>
             <CButton
               color="primary"
               class="active mt-3"

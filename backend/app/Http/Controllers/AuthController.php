@@ -28,7 +28,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'error',
                 'errors' => $validate->errors()
-            ], 422);
+            ], 200);
         }        
         $user = new User;
         $user->name = $request->name;
