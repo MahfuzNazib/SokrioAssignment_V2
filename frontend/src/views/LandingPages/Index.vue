@@ -14,6 +14,7 @@
                 </span>
                 <center>
                     <h1>Attendance Management System</h1>
+                    <img :src="'../../../img/attendance.png'" height="auto" width="auto">
                 </center>
             </span>
         </div>
