@@ -149,6 +149,23 @@
                         if (response.data.status === 'error') {
                             self.errors = response.data.errors;
                         }
+
+                        if(response.data.status = 'manager_exists'){
+                            self.$swal({
+                                title: "Error",
+                                text: "Manager Already Exists on this Branch",
+                                type: "error",
+                                icon: 'error',
+                                showCancelButton: false,
+                                confirmButtonColor: "#00CCFF",
+                                cancelButtonColor: "#00CCFF",
+                                confirmButtonText: "OK",
+                                closeOnCancel: true
+                            }).then(() => {
+                                self.$router.push({
+                                });
+                            });
+                        }
                     })
                     .catch(function (error) {
                         console.log(error);

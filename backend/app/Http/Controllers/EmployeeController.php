@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
@@ -27,8 +29,20 @@ class EmployeeController extends Controller
         }
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
-        $save = User::registerNewUser($data);
-        return response()->json(['status' => 'Success'],200);
+
+        // Checking Previous Manager is exists or not
+        if($request->menuroles == 'manager'){
+            $checkManager = Branch::where('id', $request->branch_id)->first();
+            if($checkManager->set_manager == 1){
+                return response()->json(['status' => 'manager_exists'],200);
+            }else{
+                DB::table('branches')->where('id', $request->branch_id)->update(['set_manager' => 1]);
+            }
+        }else{
+            User::registerNewUser($data);
+            return response()->json(['status' => 'Success'],200);
+        }
+        
     }
 
     public function employeeIndex($id){
@@ -41,7 +55,6 @@ class EmployeeController extends Controller
         $search_result = User::with('branch')->where('name', 'like', '%'.$search_string.'%')
         ->orWhere('email', 'like', '%'.$search_string.'%')
         ->get();
-
-return response()->json(['status' => 'Success','search_result' => $search_result], 200);
+        return response()->json(['status' => 'Success','search_result' => $search_result], 200);
     }
 }

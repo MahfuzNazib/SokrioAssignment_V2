@@ -202,15 +202,16 @@ class MenusTableSeeder extends Seeder
         DB::table('menulist')->insert([
             'name' => 'top_menu'
         ]);
+        
         $this->menuId = DB::getPdo()->lastInsertId();  //set menuId
         $this->beginDropdown('company,employee,admin', 'Pages');
-            $this->insertLink('companu,employee,admin', 'Dashboard',    '/');
+            $this->insertLink('company,employee,admin', 'Dashboard',    '/');
             $this->insertLink('admin', 'Users',                   '/users');
         $this->endDropdown();
         $this->beginDropdown('admin', 'Settings');
             $this->insertLink('admin', 'Edit menu',               '/menu');
             $this->insertLink('admin', 'Edit roles',              '/roles');
-            $this->insertLink('admin', 'Media',                   '/media');
+            // $this->insertLink('admin', 'Media',                   '/media');
         $this->endDropdown();
        
 
