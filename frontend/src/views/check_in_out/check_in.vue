@@ -2,10 +2,13 @@
     <div>
         <CCard>
             <CCardHeader>
-                <h5>Daily Check In. Current Time </h5>
+                <h5>Daily Check In and Check Out </h5>
+
             </CCardHeader>
             <CCardBody>
                 <button class="btn btn-info" type="submit" @click="checkIn()">Check IN Now</button>
+                <button class="btn btn-warning float-right" type="submit" @click="checkOut()">Check OUT Now</button>
+
                 <div v-if="loading == true">
                     <h6>Please wait...</h6>
                     <img :src="'../../../img/loading.gif'" height="auto" width="auto">
@@ -72,6 +75,41 @@ import axios from 'axios'
                                 closeOnCancel: true
                             }).then(() => {
                                 self.$router.push({
+                                });
+                            });
+                        }else{
+                            this.errors = res.data.errors;
+                        }
+                        
+                    })
+            },
+
+
+            // Check Out
+            checkOut(){
+                var self = this;
+                self.loading = true;
+                axios.post(this.$apiURL + '/check_out',{
+                    company_id: this.company_id,
+                    user_id: this.user_id,
+                    branch_id: this.branch_id
+                }).then(function (res) {
+                        console.log(res.data.status);
+                        if (res.data.status === 'Success') {
+                            self.loading = false;
+                            self.$swal({
+                                title: "Success",
+                                text: "Successfully Checked Out",
+                                type: "success",
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: "#00CCFF",
+                                cancelButtonColor: "#00CCFF",
+                                confirmButtonText: "OK",
+                                closeOnCancel: true
+                            }).then(() => {
+                                self.$router.push({
+                                    // name: 'AllEmployee'
                                 });
                             });
                         }else{

@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CheckInMail;
+use App\Mail\CheckOutMail;
 
 class CheckInOutController extends Controller
 {
@@ -44,6 +45,21 @@ class CheckInOutController extends Controller
             return response()->json(['status' => 'early_check_in'],200);
         }
         
+    }
+
+    public function checkOut(Request $request){
+        $dateTime = Carbon::now();
+        $data = $request->all();
+        $data['date'] = $dateTime->toDateString();
+        $data['check_out'] = $dateTime->toTimeString();
+        // get Branch Manager Email;
+        $managerEmail = User::where('company_id', $data['company_id'])->where('branch_id', $data['branch_id'])->select('email')->first();
+        // Get Employee Name
+        $data['emp_name'] = User::where('id', $data['user_id'])->select('name')->first();
+
+        $save = CheckInOut::checkOut($data);
+        Mail::to($managerEmail)->send(new CheckOutMail($data));
+        return response()->json(['status' => 'Success'],200);
     }
 
 

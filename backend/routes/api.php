@@ -56,6 +56,8 @@ Route::group(['middleware' => 'api'], function ($router) {
 
         // Check IN OUT
         Route::post('/check_in', 'CheckInOutController@checkIn')->name('check.in');
+        Route::post('/check_out', 'CheckInOutController@checkOut')->name('check.out');
+
         Route::get('/get_info/{id}', 'CheckInOutController@getInfo')->name('check.getInfo');
 
         Route::resource('bread',  'BreadController');   //create BREAD (resource)

@@ -21,14 +21,12 @@ class CheckInOut extends Model
     }
 
     // Update Branch
-    public static function checkOut($id, $requestData){
+    public static function checkOut($requestData){
         try{
-            $id = static::find($id);
-            $id->fill($requestData)->update();
+            $id = static::create($requestData);
             return $id;
-        }
-        catch(\Exception $e){
-            throw new \Exception($e->getMessage(), 1);  
+        }catch(\Exception $e){
+            throw new \Exception($e->getMessage(), 1);               
         }
     }
 }
